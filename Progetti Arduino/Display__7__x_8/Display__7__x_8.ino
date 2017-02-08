@@ -13,7 +13,7 @@ bool verso = false;
 DS1302 rtc(  3,  4,  0);
 
 //                     {anno, mese, giorno, ora, minuti, secondi}
-unsigned int Start[] = {2017,    1,      1,   0,      0,       0};
+unsigned int Start[] = {2018,    1,      1,   0,      0,       0};
 
 long int Ris[6];
 
