@@ -20,7 +20,7 @@ long int Ris[6];
 int somma;
 
 void setup () {
-  for (int i = 0; i < 5; i++) {
+  for (byte i = 0; i < 5; i++) {
     pinMode ( i, OUTPUT);
   }
   Time t = rtc.time();
@@ -32,7 +32,7 @@ void setup () {
 
 void loop() {
 
-  for (int i = 0; i < 9; i++) {
+  for (byte i = 0; i < 9; i++) {
     digitalWrite ( latch , LOW  );
     shiftOut     ( data, clock, MSBFIRST, ~(1 << i)      );
     shiftOut     ( data, clock, MSBFIRST, N[numero[i]] );
@@ -58,13 +58,13 @@ void loop() {
     } temp = (t.sec & 1);
   }
 
-  for (int n = 0; n < 8; n++) {
+  for (byte n = 0; n < 8; n++) {
     if (numero[n] >  9  ) {
       numero[n + 1]  += 1 ;
       numero[n]  = 0;
     }
   }
-  for (int n = 0; n < 8; n++) {
+  for (byte n = 0; n < 8; n++) {
     if (numero[n] <  0  ) {
       numero[n + 1]  -= 1 ;
       numero[n]  = 9;

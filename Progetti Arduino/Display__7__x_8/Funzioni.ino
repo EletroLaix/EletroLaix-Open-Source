@@ -1,6 +1,7 @@
 //Sottraggo due date (Data1 < Data2)
 void SotData(int* Data1,  int* Data2) {
-
+  
+  // Faccio in modo che la data piu grossa sia inserita nel vettore Data2
   for (int i = 0; i < 6; i++) {
     if (Data1[i] > Data2[i]) {
       int* tra = Data2;
@@ -15,17 +16,20 @@ void SotData(int* Data1,  int* Data2) {
   }
 
   const int Rip[] = {12, 0, 24, 60, 60};
-  int RipMese[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+  const int RipMese[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
+  //Trasformo i mei in giorni per tener conto della differenza in giorni dei vari mesi
   for (int i = 0; i < Data2[1] - 1; i++) {
     Data2[2] += RipMese[i];
   }
   Data2[1] = 0;
+
   for (int i = 0; i < Data1[1] - 1; i++) {
     Data1[2] += RipMese[i];
   }
   Data1[1] = 0;
 
+  //Faccio la sottrazione tenendo conto dei riporti
   for (int i = 5; i >= 0; i--) {
     if (Data2[i] < Data1[i]) {
       for (int f = 1; f <= i; f++) {
@@ -45,11 +49,13 @@ void SotData(int* Data1,  int* Data2) {
     }
 
     Ris[i] = Data2[i] - Data1[i];
-    for (int i = 0; i < Ris[1]; i++) {
+
+  }
+  //Trasformo gli eventuali mesi generati sal riporto in giorni
+      for (int i = 0; i < Ris[1]; i++) {
       Ris[2] += RipMese[i];
     }
     Ris[1] = 0;
-  }
 }
 
 
