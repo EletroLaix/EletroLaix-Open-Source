@@ -20,7 +20,9 @@ long int Ris[6];
 int somma;
 
 void setup () {
-  for (int i = 0; i <5; i++) { pinMode ( i, OUTPUT);}
+  for (int i = 0; i < 5; i++) {
+    pinMode ( i, OUTPUT);
+  }
   Time t = rtc.time();
   int Ora[] = {t.yr, t.mon, t.date, t.hr, t.min, t.sec};
   SotData(Ora, Start);
@@ -29,21 +31,41 @@ void setup () {
 }
 
 void loop() {
-  
-  for(int i =0; i<9;i++){
+
+  for (int i = 0; i < 9; i++) {
     digitalWrite ( latch , LOW  );
-    shiftOut     ( data, clock, MSBFIRST, ~(1<<i)      );
+    shiftOut     ( data, clock, MSBFIRST, ~(1 << i)      );
     shiftOut     ( data, clock, MSBFIRST, N[numero[i]] );
     digitalWrite ( latch , HIGH );
   }
 
   Time t = rtc.time();
-  
-  for(int i = 0;i<8;i++){somma += numero[i];}
-  if (!somma) {verso = true;}
-  
-  if ((t.sec&1) != temp){if (verso == false){numero[0]--;}else{numero[0]++;} temp = (t.sec&1);}
-  
-  for(int n = 0; n < 8; n++){ if (numero[n] >  9  ) {numero[n+1]  += 1 ; numero[n]  = 0;}}
-  for(int n = 0; n < 8; n++){ if (numero[n] <  0  ) {numero[n+1]  -= 1 ; numero[n]  = 9;}}
+
+  for (int i = 0; i < 8; i++) {
+    somma += numero[i];
+  }
+  if (!somma) {
+    verso = true;
+  }
+
+  if ((t.sec & 1) != temp) {
+    if (verso == false) {
+      numero[0]--;
+    } else {
+      numero[0]++;
+    } temp = (t.sec & 1);
+  }
+
+  for (int n = 0; n < 8; n++) {
+    if (numero[n] >  9  ) {
+      numero[n + 1]  += 1 ;
+      numero[n]  = 0;
+    }
+  }
+  for (int n = 0; n < 8; n++) {
+    if (numero[n] <  0  ) {
+      numero[n + 1]  -= 1 ;
+      numero[n]  = 9;
+    }
+  }
 }
