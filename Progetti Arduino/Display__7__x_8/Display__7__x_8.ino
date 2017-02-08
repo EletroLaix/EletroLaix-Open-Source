@@ -20,12 +20,11 @@ long int Ris[6];
 int somma;
 
 void setup () {
-
   for (int i = 0; i < 5; i++) {
     pinMode ( i, OUTPUT);
   }
   Time t = rtc.time();
-  int Ora[] = {t.yr, t.mon, t.date, t.hr, t.min, t.sec};
+  unsigned int Ora[] = {t.yr, t.mon, t.date, t.hr, t.min, t.sec};
   SotData(Ora, Start);
   long int tempMan = ConvSec(Ris);
   SetStart(tempMan);
@@ -41,12 +40,14 @@ void loop() {
   }
 
   Time t = rtc.time();
-
+  
   for (int i = 0; i < 8; i++) {
     somma += numero[i];
   }
   if (!somma) {
     verso = true;
+  } else {
+    somma = 0;
   }
 
   if ((t.sec & 1) != temp) {
