@@ -17,11 +17,11 @@ void SotData(int* Data1,  int* Data2) {
   const int Rip[] = {12, 0, 24, 60, 60};
   int RipMese[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-  for (int i = 0; i < Data2[1]-1; i++) {
+  for (int i = 0; i < Data2[1] - 1; i++) {
     Data2[2] += RipMese[i];
   }
   Data2[1] = 0;
-  for (int i = 0; i < Data1[1]-1; i++) {
+  for (int i = 0; i < Data1[1] - 1; i++) {
     Data1[2] += RipMese[i];
   }
   Data1[1] = 0;
@@ -43,7 +43,7 @@ void SotData(int* Data1,  int* Data2) {
         }
       }
     }
-    
+
     Ris[i] = Data2[i] - Data1[i];
     for (int i = 0; i < Ris[1]; i++) {
       Ris[2] += RipMese[i];
