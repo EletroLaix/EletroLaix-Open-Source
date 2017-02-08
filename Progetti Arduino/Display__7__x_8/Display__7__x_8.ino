@@ -1,7 +1,7 @@
-int N[] = {237, 33, 203, 107, 39, 110, 238, 41, 239, 111, 16};
+const byte N[] = {237, 33, 203, 107, 39, 110, 238, 41, 239, 111, 16};
 int numero[8];
 
-const int data = 2, clock = 0, latch = 1;
+const byte data = 2, clock = 0, latch = 1;
 
 bool temp = true;
 
@@ -12,8 +12,8 @@ bool verso = false;
 //        (RST,DAT,CLK)
 DS1302 rtc(  3,  4,  0);
 
-//            {anno, mese, giorno, ora, minuti, secondi}
-int Start[] = {2016,    12,     31,   24,      59,       59};
+//                     {anno, mese, giorno, ora, minuti, secondi}
+unsigned int Start[] = {2017,    1,      1,   0,      0,       0};
 
 long int Ris[6];
 
@@ -40,9 +40,9 @@ void loop() {
   Time t = rtc.time();
   
   for(int i = 0;i<8;i++){somma += numero[i];}
-  if (somma == 0) {verso = true;}
+  if (!somma) {verso = true;}
   
-  if (bool (t.sec&1) != temp){if (verso == false){numero[0]--;}else{numero[0]++;} temp = (t.sec&1);}
+  if ((t.sec&1) != temp){if (verso == false){numero[0]--;}else{numero[0]++;} temp = (t.sec&1);}
   
   for(int n = 0; n < 8; n++){ if (numero[n] >  9  ) {numero[n+1]  += 1 ; numero[n]  = 0;}}
   for(int n = 0; n < 8; n++){ if (numero[n] <  0  ) {numero[n+1]  -= 1 ; numero[n]  = 9;}}

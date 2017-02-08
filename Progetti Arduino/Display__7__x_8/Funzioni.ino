@@ -29,7 +29,7 @@ void SotData(int* Data1,  int* Data2) {
 //Converto in secondi la data
 long int ConvSec(long int* Start) {
   long int sec =
-  (Start[0] * 31557600) + 
+  (Start[0] * 31536000) +
   (Start[1] *  2629800) +
   (Start[2] *    86400) +
   (Start[3] *     3600) +
@@ -41,7 +41,7 @@ long int ConvSec(long int* Start) {
 
 //Divido le cifre nel vettore
 void SetStart(long int sec) {
- long int pot[] = {1,10,100,1000,10000,100000,1000000,10000000};
+ const long int pot[] = {1,10,100,1000,10000,100000,1000000,10000000};
  for (int i =7; i>=0; i--) { numero[i] = (sec/pot[i]); sec = sec % pot[i];}
 }
 
