@@ -14,19 +14,41 @@ void SotData(int* Data1,  int* Data2) {
     }
   }
 
-  int Rip[] = {12, 30, 24, 60, 60};
+  const int Rip[] = {12, 0, 24, 60, 60};
+  int RipMese[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+  for (int i = 0; i < Data2[1]-1; i++) {
+    Data2[2] += RipMese[i];
+  }
+  Data2[1] = 0;
+  for (int i = 0; i < Data1[1]-1; i++) {
+    Data1[2] += RipMese[i];
+  }
+  Data1[1] = 0;
 
   for (int i = 5; i >= 0; i--) {
     if (Data2[i] < Data1[i]) {
       for (int f = 1; f <= i; f++) {
         if (Data2[i - f] != 0) {
           for (int z = f; z > 0; z--) {
-            Data2[i - z] -= 1; Data2[i - z + 1] += Rip[i - z]; f = 10;
+            if (i - z == 1) {
+              Data2[i - z + 1] += RipMese[Data2[i - z] - 1 ];
+              Data2[i - z] -= 1;
+              f = 10;
+            }
+            else {
+              Data2[i - z] -= 1; Data2[i - z + 1] += Rip[i - z]; f = 10;
+            }
           }
         }
       }
     }
+    
     Ris[i] = Data2[i] - Data1[i];
+    for (int i = 0; i < Ris[1]; i++) {
+      Ris[2] += RipMese[i];
+    }
+    Ris[1] = 0;
   }
 }
 
@@ -35,7 +57,6 @@ void SotData(int* Data1,  int* Data2) {
 long int ConvSec(long int* Start) {
   long int sec =
     (Start[0] * 31536000) +
-    (Start[1] *  2629800) +
     (Start[2] *    86400) +
     (Start[3] *     3600) +
     (Start[4] *       60) +

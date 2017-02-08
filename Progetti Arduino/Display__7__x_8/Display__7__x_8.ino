@@ -20,6 +20,7 @@ long int Ris[6];
 int somma;
 
 void setup () {
+
   for (int i = 0; i < 5; i++) {
     pinMode ( i, OUTPUT);
   }
