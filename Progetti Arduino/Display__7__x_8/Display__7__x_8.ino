@@ -1,30 +1,37 @@
 const byte N[] = {237, 33, 203, 107, 39, 110, 238, 41, 239, 111, 16};
 int numero[8];
 
-const byte data = 2, clock = 0, latch = 1;
+#include <DS3232RTC.h>             
+#include <TinyWireM.h>   
+#define NOSERIALE
+
+const byte data = 4, clock = 3, latch = 1;
 
 bool temp = true;
 
 bool verso = false;
 
-#include <DS1302.h>
-
-//        (RST,DAT,CLK)
-DS1302 rtc(  3,  4,  0);
-
 //                     {anno, mese, giorno, ora, minuti, secondi}
-unsigned int Start[] = {2018,    1,      1,   0,      0,       0};
+int Start[] = {2018,    1,      1,   0,      0,       0};
 
 long int Ris[6];
 
 int somma;
-
+time_t t = now();
 void setup () {
+    #ifndef NOSERIALE
+  Serial.begin(9600);
+  #endif
+  
   for (byte i = 0; i < 5; i++) {
     pinMode ( i, OUTPUT);
   }
-  Time t = rtc.time();
-  unsigned int Ora[] = {t.yr, t.mon, t.date, t.hr, t.min, t.sec};
+  setSyncProvider(RTC.get);
+   t = now();
+  int Ora[] = { year(t),month(t),day(t),hour(t), minute(t), second(t)};
+    #ifndef NOSERIALE
+  printData(Ora);
+  #endif
   SotData(Ora, Start);
   long int tempMan = ConvSec(Ris);
   SetStart(tempMan);
@@ -38,9 +45,9 @@ void loop() {
     shiftOut     ( data, clock, MSBFIRST, N[numero[i]] );
     digitalWrite ( latch , HIGH );
   }
-
-  Time t = rtc.time();
   
+ setSyncProvider(RTC.get);
+  t = now();
   for (int i = 0; i < 8; i++) {
     somma += numero[i];
   }
@@ -50,12 +57,12 @@ void loop() {
     somma = 0;
   }
 
-  if ((t.sec & 1) != temp) {
+  if (( second(t) & 1) != temp) {
     if (verso == false) {
       numero[0]--;
     } else {
       numero[0]++;
-    } temp = (t.sec & 1);
+    } temp = ( second(t) & 1);
   }
 
   for (byte n = 0; n < 8; n++) {

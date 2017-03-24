@@ -80,5 +80,21 @@ void SetStart(long int sec) {
   }
 }
 
+#ifndef NOSERIALE
+//Stampa data
+void printData(int* Data) {
+  Serial.print(Data[0]);
+  Serial.print(" ");
+  Serial.print(Data[1]);
+  Serial.print(" ");
+  Serial.print(Data[2]);
+  Serial.print(" ");
+  Serial.print(Data[3]);
+  Serial.print(" ");
+  Serial.print(Data[4]);
+  Serial.print(" ");
+  Serial.println(Data[5]);
+}
+#endif
 
 
